@@ -9,5 +9,13 @@ services:
       - data:/data
     restart: unless-stopped
 
+  ingester:
+    build: ingester
+    ports:
+      - 8080
+    links:
+      - db:chronix
+    restart: unless-stopped
+
 volumes:
   data:
