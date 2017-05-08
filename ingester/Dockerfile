@@ -2,7 +2,9 @@ FROM golang:alpine
 
 RUN apk add --no-cache git &&\
   go get github.com/ChronixDB/chronix.ingester &&\
+  mkdir /cache &&\
   apk del git
 
 EXPOSE 8080
-CMD [ "/go/bin/chronix.ingester" "-chronix-url=http://chronix:8983/solr/chronix"]
+VOLUME /cache
+CMD [ "/go/bin/chronix.ingester", "-checkpoint-file=/cache/checkpoint.db", "-chronix-url=http://chronix:8983/solr/chronix" ]
