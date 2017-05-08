@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  db:
+    build: chronix
+    ports:
+      - 8983
+    volumes:
+      - data:/data
+    restart: unless-stopped
+
+volumes:
+  data:
