@@ -7,6 +7,7 @@ services:
       - 8983
     volumes:
       - data:/data
+      - config:/conf
     restart: unless-stopped
 
   ingester:
@@ -19,3 +20,4 @@ services:
 
 volumes:
   data:
+  config:

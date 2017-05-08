@@ -8,13 +8,16 @@ RUN apk add --no-cache bash curl &&\
   rm chronix-0.5-beta.zip &&\
   cd chronix-solr-6.4.2 &&\
   chmod +x bin/solr &&\
-  chown -R 1000:1000 /chronix-solr-6.4.2 &&\
+  adduser -Du 1000 chronix &&\
+  chown -R chronix /chronix-solr-6.4.2 &&\
   mv /chronix-solr-6.4.2/server/solr/chronix/data /data &&\
+  mv /chronix-solr-6.4.2/server/solr/chronix/conf /conf &&\
   ln -s /data /chronix-solr-6.4.2/server/solr/chronix/data &&\
+  ln -s /conf /chronix-solr-6.4.2/server/solr/chronix/conf &&\
   apk del curl
 
-USER 1000
+USER chronix
 WORKDIR /chronix-solr-6.4.2
 EXPOSE 8983
-VOLUME /data
+VOLUME /data /conf
 CMD ["./bin/solr", "start", "-f" ] 
